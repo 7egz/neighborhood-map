@@ -3,14 +3,13 @@ import React, { Component } from "react";
 import MapContainer from './Map.js';
 import Inputs from './search.js'
 import {points,getUrl} from './config';
-import './App.css'
+import './App.css';
+
 
 
 
 class App extends Component {
-   /** holds current cliked marker information  */
   
- 
    state = {
       query: '',
       hasError:false,
@@ -19,7 +18,7 @@ class App extends Component {
       activeMarker: null,
       points : [...points]
    }
-
+ /** holds current cliked marker information  */
    handleMarkerClick = (props,marker,e,point)=>{
     this.state.info.forEach((item)=>{
       if (item.pointer.title === point.title) {
@@ -32,7 +31,7 @@ class App extends Component {
       
    }
 
-    /** */
+    /**hold the erarch filter according to the user input */
    handleSearch = (text) => {
       this.setState({ query: text });
       const result = points.filter(item=> item.title.toLowerCase().indexOf(text.toLowerCase()) > -1);
@@ -41,7 +40,7 @@ class App extends Component {
       //console.log(this.state.query);
    }
 
-    /** */
+    /** fetch all Api data for the marker from 4square*/
  componentDidMount(){
     this.state.points.forEach(pointer=>{
       fetch(getUrl(pointer.lat,pointer.lng)).then(response=>{
@@ -54,7 +53,7 @@ class App extends Component {
    
   }
   
-  /** */
+  /**handle the error */
    componentDidCatch(){
     this.setState({hasError:true})
   }
@@ -67,16 +66,18 @@ class App extends Component {
       this.state.hasError?<h1>Something went wrong...</h1>:
         <div>
       <main>
-      
-      <nav><Inputs handleSearch={evt=>{this.handleSearch(evt)}} /></nav>
+
+        <nav>
+          <Inputs handleSearch={evt=>{this.handleSearch(evt)}} />
+        </nav>
       
           <section id='map'>
             <MapContainer  points={this.state.points} activeMarker={this.state.activeMarker} locationInfo={this.state.activeItem} handleMarkerClick={(props,marker,e,item)=>this.handleMarkerClick(props,marker,e,item)} />
-        </section>
-       
-          
+          </section>
          {this.activeItem}
+
          </main>
+         
       </div>
     );
   }

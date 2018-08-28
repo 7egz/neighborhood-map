@@ -14,6 +14,7 @@ class Inputs extends Component {
               </datalist>
               <div id="search-filter">
             <TextInput id="search-filter-input" list="points"
+               aria-label = 'Enter a city name to filter the result and select one'
                placeholder = "Search for place"
                onChangeText = {(evt)=>this.props.handleSearch(evt)}/></div>
          </View>

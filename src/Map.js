@@ -9,6 +9,7 @@ handleMarkerClick(props,marker,e,item){
   render() {
 
     return (
+    	/**run the map on certain lat and lng*/
       <Map google={this.props.google} 
       	   initialCenter={{
             lat: 51.221720,
@@ -16,17 +17,16 @@ handleMarkerClick(props,marker,e,item){
           }}
       	   zoom={9}
       	   >
- 
+ 		{/**loop on my entery data and add the marker */}
        	{this.props.points.map((item)=><Marker  
        		    onClick={(props,marker,e)=>this.handleMarkerClick(props,marker,e,item)} 
        			key={item.lat}
 		       	title={item.title}
-		       	name={'SOMA'}
 		        position={{lat: item.lat, lng: item.lng }}
 		        />
        )}
     
-     
+     {/**view info about the city*/}
   		<InfoWindow 
        		marker={this.props.activeMarker}
 			visible={this.props.locationInfo ? true : false}
@@ -36,6 +36,8 @@ handleMarkerClick(props,marker,e,item){
 		 	    	<div>
 		 	    	<h4>{this.props.locationInfo.pointer.title}</h4>
 		 	    	<p>Address: {this.props.locationInfo.pointer.title}</p>
+		 	    	<p>Population: {this.props.locationInfo.pointer.Population}</p>
+		 	    	<p>Airport: {this.props.locationInfo.pointer.Airport}</p>
 					</div>
 		 	    }
 
