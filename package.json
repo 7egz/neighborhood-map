@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "google-maps-react": "^2.0.2",
     "react": "16.4.0",
     "react-art": "16.4.0",
     "react-dom": "16.4.0",
